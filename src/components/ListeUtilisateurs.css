@@ -1,0 +1,91 @@
+/* Container principal */
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Message d'action */
+  .message {
+    color: green;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Tableau des utilisateurs */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  thead {
+    background-color: #0078d4;
+    color: #fff;
+  }
+  
+  th,
+  td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f3f3f3;
+  }
+  
+  /* Boutons */
+  button {
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:focus {
+    outline: none;
+  }
+  
+  .edit-button {
+    background-color: #4caf50;
+    color: #fff;
+    margin-right: 10px;
+  }
+  
+  .edit-button:hover {
+    background-color: #45a049;
+  }
+  
+  .delete-button {
+    background-color: #f44336;
+    color: #fff;
+  }
+  
+  .delete-button:hover {
+    background-color: #d32f2f;
+  }
+  
+  /* Pas de données */
+  .no-data {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+  }
+  
