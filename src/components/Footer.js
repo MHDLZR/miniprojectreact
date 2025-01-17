@@ -1,12 +1,10 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
-    const colorUser = useSelector((state)=>state.user.couleur);
     const styles = {
         footer: {
-          backgroundColor: colorUser,
+          backgroundColor: "#282c34",
           color: "#000",
           display: "flex",
           justifyContent: "space-between",

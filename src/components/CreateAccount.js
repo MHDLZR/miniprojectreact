@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const CreateAccount = () => {
   const navigate = useNavigate();
-const [formData,setFormData] = useState({
+  const [formData,setFormData] = useState({
     nom: '',
     prenom: '',
     age: '',
