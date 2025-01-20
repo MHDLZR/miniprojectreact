@@ -68,6 +68,7 @@ const styles = {
     border: "1px solid #ccc",
     borderRadius: "10px",
     textAlign: "center",
+    backgroundColor: "#FFF",
   },
   select: {
     margin: "10px 0",

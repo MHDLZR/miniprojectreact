@@ -7,6 +7,7 @@ import ModifierCouleur from "./components/ModifierCouleur";
 import VoirMonProfile from "./components/VoirMonProfile";
 import ListeUtilisateurs from "./components/ListeUtilisateurs";
 import Demandes from "./components/Demandes";
+import AjouterUtilisateur from "./components/AjouterUtilisateur";
 // import Header from "./components/Header";
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
             <Route path="/profile" element={<VoirMonProfile />} />
             <Route path="/users" element={<ListeUtilisateurs />} />
             <Route path="/requests" element={<Demandes />} />
+            <Route path="/add-user" element={<AjouterUtilisateur />} /> 
           </Route>
         </Routes>
       </>

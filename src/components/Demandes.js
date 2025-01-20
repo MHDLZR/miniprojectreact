@@ -1,228 +1,80 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  ajouterDemande,
+  supprimerDemande,
+  modifierStatutDemande,
+} from "../redux/slice";
 
 const Demandes = () => {
-  const user = useSelector((state) => state.user); // Obtenir les informations utilisateur depuis Redux
-  const [demandes, setDemandes] = useState([]); // Liste des demandes
-  const [newDemande, setNewDemande] = useState({ titre: "", description: "" }); // Nouvelle demande
-  const [message, setMessage] = useState(""); // Messages utilisateur
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user); // Accès aux données utilisateur
+  const [newDemande, setNewDemande] = useState({ titre: "", description: "" });
 
-  // Charger les demandes depuis l'API
-  useEffect(() => {
-    fetchDemandes();
-  }, []);
-
-  const fetchDemandes = async () => {
-    try {
-      const response = await axios.get(
-        "https://670ed5b73e7151861655eaa3.mockapi.io/Demandes"
-      );
-      setDemandes(response.data);
-    } catch (error) {
-      setMessage("Erreur lors du chargement des demandes.");
-    }
+  const handleAddDemande = (e) => {
+    e.preventDefault();
+    dispatch(ajouterDemande(newDemande)); // Ajouter une nouvelle demande
+    setNewDemande({ titre: "", description: "" }); // Réinitialiser le formulaire
   };
 
-  // Ajouter une nouvelle demande
-  const handleAddDemande = async () => {
-    try {
-      await axios.post("https://670ed5b73e7151861655eaa3.mockapi.io/Demandes", {
-        ...newDemande,
-        statut: "En attente", // Statut initial
-        utilisateurId: user.id, // ID utilisateur
-      });
-      setMessage("Demande ajoutée avec succès !");
-      setNewDemande({ titre: "", description: "" });
-      fetchDemandes(); // Recharger les demandes
-    } catch (error) {
-      setMessage("Erreur lors de l'ajout de la demande.");
-    }
+  const handleCancelDemande = (id) => {
+    dispatch(supprimerDemande(id)); // Supprimer une demande par ID
   };
 
-  // Annuler une demande (utilisateur)
-  const handleCancelDemande = async (id) => {
-    try {
-      await axios.delete(`https://670ed5b73e7151861655eaa3.mockapi.io/Demandes/${id}`);
-      setMessage("Demande annulée avec succès !");
-      fetchDemandes();
-    } catch (error) {
-      setMessage("Erreur lors de l'annulation de la demande.");
-    }
-  };
-
-  // Changer le statut d'une demande (admin)
-  const handleChangeStatut = async (id, statut) => {
-    try {
-      await axios.put(`https://670ed5b73e7151861655eaa3.mockapi.io/Demandes/${id}`, {
-        statut,
-      });
-      setMessage(`Demande ${statut.toLowerCase()} avec succès !`);
-      fetchDemandes();
-    } catch (error) {
-      setMessage("Erreur lors de la mise à jour du statut.");
-    }
+  const handleChangeStatut = (id, statut) => {
+    dispatch(modifierStatutDemande({ id, statut })); // Modifier le statut d'une demande
   };
 
   return (
-    <div style={styles.container}>
+    <div>
       <h1>Gestion des Demandes</h1>
 
-      {/* Afficher les messages */}
-      {message && <p style={styles.message}>{message}</p>}
-
-      {/* Formulaire pour ajouter une demande (utilisateur) */}
+      {/* Formulaire pour ajouter une demande */}
       {!user.admin && (
-        <div style={styles.form}>
-          <h2>Ajouter une Demande</h2>
+        <form onSubmit={handleAddDemande}>
           <input
             type="text"
             placeholder="Titre"
             value={newDemande.titre}
             onChange={(e) => setNewDemande({ ...newDemande, titre: e.target.value })}
-            style={styles.input}
+            required
           />
           <textarea
             placeholder="Description"
             value={newDemande.description}
-            onChange={(e) =>
-              setNewDemande({ ...newDemande, description: e.target.value })
-            }
-            style={styles.textarea}
+            onChange={(e) => setNewDemande({ ...newDemande, description: e.target.value })}
+            required
           />
-          <button onClick={handleAddDemande} style={styles.addButton}>
-            Ajouter
-          </button>
-        </div>
+          <button type="submit">Soumettre</button>
+        </form>
       )}
 
       {/* Liste des demandes */}
-      <h2>Mes Demandes</h2>
-      <table style={styles.table}>
-        <thead>
-          <tr>
-            <th>Titre</th>
-            <th>Description</th>
-            <th>Statut</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {demandes
-            .filter((d) =>
-              user.admin ? true : d.utilisateurId === user.id // Filtrer par utilisateur si non admin
-            )
-            .map((demande) => (
-              <tr key={demande.id}>
-                <td>{demande.titre}</td>
-                <td>{demande.description}</td>
-                <td>{demande.statut}</td>
-                <td>
-                  {/* Annuler une demande (utilisateur) */}
-                  {!user.admin && demande.statut === "En attente" && (
-                    <button
-                      style={styles.cancelButton}
-                      onClick={() => handleCancelDemande(demande.id)}
-                    >
-                      Annuler
-                    </button>
-                  )}
-
-                  {/* Actions pour admin */}
-                  {user.admin && (
-                    <>
-                      <button
-                        style={styles.acceptButton}
-                        onClick={() => handleChangeStatut(demande.id, "Approuvée")}
-                      >
-                        Approuver
-                      </button>
-                      <button
-                        style={styles.rejectButton}
-                        onClick={() => handleChangeStatut(demande.id, "Rejetée")}
-                      >
-                        Rejeter
-                      </button>
-                    </>
-                  )}
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+      <h2>Liste des Demandes</h2>
+      <ul>
+        {user.demandes.map((demande) => (
+          <li key={demande.id}>
+            <p>{demande.titre}</p>
+            <p>{demande.description}</p>
+            <p>{demande.statut}</p>
+            {!user.admin && demande.statut === "En attente" && (
+              <button onClick={() => handleCancelDemande(demande.id)}>Annuler</button>
+            )}
+            {user.admin && (
+              <>
+                <button onClick={() => handleChangeStatut(demande.id, "Approuvée")}>
+                  Approuver
+                </button>
+                <button onClick={() => handleChangeStatut(demande.id, "Rejetée")}>
+                  Rejeter
+                </button>
+              </>
+            )}
+          </li>
+        ))}
+      </ul>
     </div>
   );
-};
-
-// Styles en ligne
-const styles = {
-  container: {
-    maxWidth: "800px",
-    margin: "20px auto",
-    padding: "20px",
-    border: "1px solid #ccc",
-    borderRadius: "10px",
-    backgroundColor: "#f9f9f9",
-  },
-  message: {
-    color: "green",
-    fontWeight: "bold",
-  },
-  form: {
-    marginBottom: "20px",
-  },
-  input: {
-    display: "block",
-    width: "100%",
-    marginBottom: "10px",
-    padding: "10px",
-    fontSize: "16px",
-  },
-  textarea: {
-    display: "block",
-    width: "100%",
-    height: "100px",
-    marginBottom: "10px",
-    padding: "10px",
-    fontSize: "16px",
-  },
-  addButton: {
-    padding: "10px 20px",
-    backgroundColor: "#4CAF50",
-    color: "#fff",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-  },
-  table: {
-    width: "100%",
-    borderCollapse: "collapse",
-  },
-  cancelButton: {
-    padding: "5px 10px",
-    backgroundColor: "#f44336",
-    color: "#fff",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-  },
-  acceptButton: {
-    marginRight: "10px",
-    padding: "5px 10px",
-    backgroundColor: "#4CAF50",
-    color: "#fff",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-  },
-  rejectButton: {
-    padding: "5px 10px",
-    backgroundColor: "#f44336",
-    color: "#fff",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-  },
 };
 
 export default Demandes;

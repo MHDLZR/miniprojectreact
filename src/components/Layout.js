@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import "./Layout.css";
 
 const Layout = () => {
-  const couleurAccueil = useSelector((state) => state.couleur);
+  const couleurAccueil = useSelector((state) => state.user.couleur);
   const location = useLocation();
 
   const isAccueil = location.pathname === "/";

@@ -10,7 +10,6 @@ const Footer = () => {
           justifyContent: "space-between",
           alignItems: "center",
           padding: "20px",
-          marginTop: "auto",
         },
         address: {
           flex: 1,

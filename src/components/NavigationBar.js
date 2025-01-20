@@ -25,6 +25,11 @@ const NavigationBar = () => {
             Modifier la Couleur
           </NavLink>
         </li>
+        <li style={styles.menuItem}>
+          <NavLink to="/requests" style={styles.link} activeStyle={styles.active}>
+            Gérer les Demandes
+          </NavLink>
+        </li>
 
         {user.admin && (
           <>
@@ -33,9 +38,10 @@ const NavigationBar = () => {
                 Liste des Utilisateurs
               </NavLink>
             </li>
+
             <li style={styles.menuItem}>
-              <NavLink to="/requests" style={styles.link} activeStyle={styles.active}>
-                Gérer les Demandes
+              <NavLink to="/add-user" style={styles.link} activeStyle={styles.active}>
+                Ajouter Utilisateur
               </NavLink>
             </li>
           </>
