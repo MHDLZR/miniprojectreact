@@ -1,10 +1,13 @@
+// ListeUtilisateurs.js
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./ListeUtilisateurs.css";
+import { useNavigate } from "react-router-dom";
 
 const ListeUtilisateurs = () => {
   const [users, setUsers] = useState([]);
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchUsers();
@@ -32,7 +35,7 @@ const ListeUtilisateurs = () => {
   };
 
   const handleEdit = (id) => {
-    setMessage(`Fonction de modification pour l'utilisateur ${id} non implémentée.`);
+    navigate(`/edit-user/${id}`);
   };
 
   return (

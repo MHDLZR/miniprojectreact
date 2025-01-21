@@ -1,9 +1,10 @@
+// NavigationBar.js
 import React from "react";
-import { NavLink } from "react-router-dom"; // Pour gérer la navigation
+import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const NavigationBar = () => {
-  const user = useSelector((state) => state.user); // Récupérer les données utilisateur depuis Redux
+  const user = useSelector((state) => state.user);
 
   return (
     <nav style={styles.nav}>
@@ -13,13 +14,16 @@ const NavigationBar = () => {
             Accueil
           </NavLink>
         </li>
-
-        <li style={styles.menuItem}>
+          <li style={styles.menuItem}>
           <NavLink to="/profile" style={styles.link} activeStyle={styles.active}>
             Mon Profil
           </NavLink>
         </li>
-
+        <li style={styles.menuItem}>
+          <NavLink to="/edit-profile" style={styles.link} activeStyle={styles.active}>
+             Modifier mon Profile
+          </NavLink>
+        </li>
         <li style={styles.menuItem}>
           <NavLink to="/color" style={styles.link} activeStyle={styles.active}>
             Modifier la Couleur

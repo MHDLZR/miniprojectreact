@@ -1,3 +1,4 @@
+// App.js
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
@@ -8,30 +9,28 @@ import VoirMonProfile from "./components/VoirMonProfile";
 import ListeUtilisateurs from "./components/ListeUtilisateurs";
 import Demandes from "./components/Demandes";
 import AjouterUtilisateur from "./components/AjouterUtilisateur";
-// import Header from "./components/Header";
+import EditUser from "./components/EditUser";
+import EditProfile from "./components/EditProfile";
 
 const App = () => {
-  // const shouldShowHeader = window.location.pathname !== "/login" && window.location.pathname !== "/create-account";
-
   return (
     <Router>
-      <>
-        {/* {shouldShowHeader && <Header />} */}
-        <Routes>
-          <Route path="/create-account" element={<CreateAccount />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Layout />} >
-            <Route path="/color" element={<ModifierCouleur />} />
-            <Route path="/profile" element={<VoirMonProfile />} />
-            <Route path="/users" element={<ListeUtilisateurs />} />
-            <Route path="/requests" element={<Demandes />} />
-            <Route path="/add-user" element={<AjouterUtilisateur />} /> 
-          </Route>
-        </Routes>
-      </>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/create-account" element={<CreateAccount />} />
+        <Route path="/" element={<Layout />} >
+           <Route index element={<></>} />
+          <Route path="color" element={<ModifierCouleur />} />
+          <Route path="profile" element={<VoirMonProfile />} />
+           <Route path="edit-profile" element={<EditProfile />} />
+          <Route path="users" element={<ListeUtilisateurs />} />
+          <Route path="requests" element={<Demandes />} />
+          <Route path="add-user" element={<AjouterUtilisateur />} />
+           <Route path="edit-user/:id" element={<EditUser />} />
+        </Route>
+      </Routes>
     </Router>
   );
 };
-
 
 export default App;
