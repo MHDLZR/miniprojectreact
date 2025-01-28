@@ -15,7 +15,7 @@ const initialState = {
   email: "Wade34@yahoo.com",
   photo: "https://loremflickr.com/640/480/people",
   id: "8",
-  demande: null,
+  demandes: [], // Initialize as an empty array
 };
 
 const userSlice = createSlice({
@@ -29,22 +29,23 @@ const userSlice = createSlice({
     changerCouleur: (state, action) => {
       state.couleur = action.payload;
     },
-    ajouterDemande: (state, action) => {
-        state.demande = action.payload;
+      ajouterDemande: (state, action) => {
+      state.demandes = action.payload
       },
-    supprimerDemande: (state) => {
-        state.demande = null;
-      },
-      modifierStatutDemande: (state, action) => {
-        if (state.demande) {
-          state.demande.statut = action.payload.statut;
-        }
-    },
-    modifierDemande: (state, action) => {
-        if (state.demande) {
-            state.demande = { ...state.demande, ...action.payload };
-        }
-    }
+        supprimerDemande: (state, action) => {
+             state.demandes = state.demandes.filter((demande) => demande.id !== action.payload);
+          },
+     modifierStatutDemande: (state, action) => {
+           state.demandes = state.demandes.map(demande =>
+                demande.id === action.payload.id ? { ...demande, statut: action.payload.statut} : demande
+                );
+         },
+
+      modifierDemande: (state, action) => {
+        if (state.demandes) {
+         state.demandes = state.demandes.map(demande => demande.id === action.payload.id ? {...demande, ...action.payload} : demande);
+          }
+        },
   },
 });
 
@@ -52,10 +53,10 @@ export const {
   login,
   logout,
   changerCouleur,
-  ajouterDemande,
-  supprimerDemande,
+    ajouterDemande,
+    supprimerDemande,
   modifierStatutDemande,
-  modifierDemande
+  
 } = userSlice.actions;
 
 export default userSlice.reducer;
