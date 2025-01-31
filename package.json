@@ -1,7 +1,10 @@
+
+
 {
   "name": "mini-projet-redux",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://MHDLZR.github.io/miniprojectreact",
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
