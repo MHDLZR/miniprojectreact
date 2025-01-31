@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   nom: "Funk",
-  age: 66,
+  age: 67,
   admin: true,
   MotDePasse: "e2EpziAy5RIpJgP",
   pseudo: "Kaci_Reilly73",
@@ -15,7 +15,7 @@ const initialState = {
   email: "Wade34@yahoo.com",
   photo: "https://loremflickr.com/640/480/people",
   id: "8",
-  demandes: [], // Initialize as an empty array
+  demandes: [], 
 };
 
 const userSlice = createSlice({

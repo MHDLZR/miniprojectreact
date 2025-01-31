@@ -44,7 +44,7 @@ body {
 max-width: var(--container-max-width);
  width: 95%; /* Changed to 95% */
 padding: var(--container-padding);
-min-height: 90vh;
+min-height: 100vh;
  margin: 10px;
   transition: box-shadow var(--transition-duration),
       width var(--transition-duration);

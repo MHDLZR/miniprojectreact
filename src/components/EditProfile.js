@@ -17,7 +17,9 @@ const EditProfile = () => {
         pseudo: user.pseudo,
         age: user.age,
         couleur: user.couleur,
-        avatar: user.avatar,
+        photo: user.photo,
+        Pays: user.Pays, 
+        Devise: user.Devise, 
     });
     const [message, setMessage] = useState("");
 
@@ -101,9 +103,9 @@ const EditProfile = () => {
                 />
                <input
                     type="text"
-                    name="avatar"
-                    placeholder="Avatar"
-                    value={formData.avatar}
+                    name="photo"
+                    placeholder="photo URL" 
+                    value={formData.photo}
                     onChange={handleChange}
                    className="input"
                    required
@@ -116,6 +118,22 @@ const EditProfile = () => {
                     onChange={handleChange}
                    className="input"
                    required
+                />
+                <input 
+                  type="text"
+                  name="Pays"
+                  placeholder="Pays"
+                  value={formData.Pays}
+                  onChange={handleChange}
+                  className="input"
+                />
+                <input 
+                  type="text"
+                  name="Devise"
+                  placeholder="Devise"
+                  value={formData.Devise}
+                  onChange={handleChange}
+                  className="input"
                 />
                 <button type="submit" className="button">
                     Mettre à jour
